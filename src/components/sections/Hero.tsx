@@ -15,6 +15,8 @@ import { ConsensusFigure } from "@/components/agents/ConsensusFigure";
  * laptop. An earlier arrangement put the record above it and pushed the figure out of
  * view, which defeated the point of having it.
  */
+const publishedCount = publications.filter((p) => p.status === "published").length;
+
 export function Hero() {
   return (
     <section id="hero" className="relative border-b border-rule pt-20 pb-16 md:pt-24">
@@ -60,7 +62,11 @@ export function Hero() {
           <Stat
             label="Peer-reviewed"
             value={String(publications.length)}
-            note={`${publications.filter((p) => p.status === "published").length} published`}
+            note={
+              publishedCount === publications.length
+                ? "all published"
+                : `${publishedCount} published`
+            }
           />
           <Stat
             label="Citations"

@@ -96,6 +96,12 @@ source before changing anything.
    `latexmk -pdf adam_kostka_ai_software_engineering_cv_final.tex`, then copy the result
    to `public/adam-kostka-cv.pdf`.
 
+   Subsequently both UAI and ICLP were confirmed published, so all eight papers are out.
+   The CV's venue line is now a plain list with no bold and no parenthetical status, and
+   the summary says "eight published papers". **The one thing still missing is a
+   proceedings URL for ICLP 2026** — the arXiv preprint is linked in its place. Add it to
+   `src/content/publications.ts` when it is indexed.
+
 3. **A claim in the QUORUM demonstration had become false.** It used to assert that
    Iceland has no mosquito population. Mosquitoes were confirmed in Iceland in October
    2025, so I replaced that round with a claim about Venus's rotation period, which is

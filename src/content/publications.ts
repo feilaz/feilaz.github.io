@@ -13,6 +13,9 @@
  *            August 2026 and is now marked published, with the proceedings page, the
  *            PDF and the OpenReview record linked. Stale status on a flagship paper is
  *            exactly the kind of error an academic reader notices first.
+ *   2026-08  ICLP 2026 was also listed as "accepted"; it is published. No proceedings
+ *            landing page was indexed when this was corrected, so the arXiv preprint
+ *            remains the linked artifact — add the proceedings URL when it appears.
  */
 
 export type Topic =
@@ -110,7 +113,7 @@ export const publications: Publication[] = [
     venueShort: "ICLP 2026",
     year: 2026,
     kind: "technical communication",
-    status: "accepted",
+    status: "published",
     summary:
       "When several reasoners disagree, some of that disagreement is noise and some is structural — they simply cannot represent the same distinctions. This work builds an aggregation rule that tells the two apart, reconciling beliefs where reconciliation is meaningful and leaving principled disagreement intact where it is not.",
     findings: [
@@ -118,8 +121,10 @@ export const publications: Publication[] = [
     ],
     topics: ["belief revision", "logic", "multi-agent systems"],
     links: [{ label: "arXiv", href: "https://arxiv.org/abs/2607.21210" }],
-    citation: { note: "Accepted as a Technical Communication" },
-    source: "arxiv.org/abs/2607.21210; venue per CV and stypendium PW/publikacje.txt",
+    citation: { note: "Technical Communication" },
+    source:
+      "arxiv.org/abs/2607.21210; venue and published status per the author. No proceedings\n" +
+      "      landing page was indexed at the time of writing, so the preprint is the linked artifact.",
   },
   {
     id: "knowledge-tom-logic-retrieval",
