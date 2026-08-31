@@ -87,7 +87,16 @@ source before changing anything.
 1. **UAI 2026 is published, not just accepted.** Your CV says "accepted"; the paper is in
    PMLR 337:3143–3161, and I have linked the proceedings page, the PDF and the
    OpenReview record. Your CV should be updated too.
-2. **A claim in the QUORUM demonstration had become false.** It used to assert that
+2. **The CV PDF said "accepted" too, and has been rebuilt.** The site and the PDF
+   contradicted each other on the single most impressive fact in either. The LaTeX source
+   at `~/Documents/CV/` now reads `UAI 2026 (PMLR 337:3143--3161), ICLP 2026 (accepted)`,
+   the phone number has been removed from the header, and `feilaz.github.io` added in its
+   place — so the PDF now points at the fuller artifact instead of competing with it. The
+   originals are backed up in `~/Documents/CV/.backup/`. Rebuild with:
+   `latexmk -pdf adam_kostka_ai_software_engineering_cv_final.tex`, then copy the result
+   to `public/adam-kostka-cv.pdf`.
+
+3. **A claim in the QUORUM demonstration had become false.** It used to assert that
    Iceland has no mosquito population. Mosquitoes were confirmed in Iceland in October
    2025, so I replaced that round with a claim about Venus's rotation period, which is
    stable. **Lesson worth keeping in mind: any factual claim baked into the site can
