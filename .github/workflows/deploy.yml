@@ -1,0 +1,74 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Lets you re-deploy from the Actions tab without pushing a commit.
+  workflow_dispatch:
+
+# Read the repo, write to Pages, and mint the deployment token.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. Queue rather than cancel, so a push never leaves the live
+# site half-updated.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Audit colour contrast
+        # Cheap, deterministic, and catches a whole class of regression before it ships.
+        run: npm run check:contrast
+
+      - name: Build static export
+        run: npm run build
+
+      - name: Disable Jekyll
+        # Without this, Pages runs the output through Jekyll, which silently drops every
+        # directory beginning with an underscore — including _next, i.e. all the CSS and
+        # JavaScript on the site.
+        run: touch out/.nojekyll
+
+      - name: Verify the export is complete
+        # A deploy that succeeds while missing the stylesheet is worse than a failed one.
+        run: |
+          set -e
+          for f in out/index.html out/og.png out/sitemap.xml out/robots.txt \
+                   out/adam-kostka-cv.pdf out/work/certified-multi-agent-verification/index.html; do
+            test -s "$f" || { echo "missing or empty: $f"; exit 1; }
+          done
+          test -d out/_next/static || { echo "no static assets emitted"; exit 1; }
+          grep -q "Adam Kostka" out/index.html || { echo "index.html has no content"; exit 1; }
+          echo "export verified"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
