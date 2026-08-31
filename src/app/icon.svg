@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!--
+    The site's mark, which is the site's argument compressed to two strokes: the ink
+    line is the truth, the vermilion one is where a panel of agreeing agents actually
+    lands. Legible at 16px, and it is not a monogram or a generic glyph.
+  -->
+  <rect width="32" height="32" fill="#f6f4ef"/>
+  <rect x="11" y="5" width="2.5" height="22" fill="#191713"/>
+  <rect x="20" y="9" width="2.5" height="14" fill="#b93f22"/>
+</svg>
