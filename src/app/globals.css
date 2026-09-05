@@ -2497,8 +2497,7 @@ h1, h2, h3, h4 { letter-spacing: -.035em; text-wrap: balance; }
 ::selection { background: var(--selection); color: var(--ink); }
 .container { max-width: 1200px; width: calc(100% - 128px); }
 .site-header { height: 86px; backdrop-filter: none; background: var(--background); }
-.wordmark { gap: 12px; font-size: 16px; letter-spacing: -.02em; }
-.brand-mark { color: var(--blue); font-family: var(--font-mono); font-size: 26px; line-height: 1; }
+.wordmark { font-size: 22px; line-height: 1.2; letter-spacing: -.02em; white-space: nowrap; }
 .header-actions { display: flex; align-items: center; gap: 28px; }
 .main-nav { gap: 25px; }
 .main-nav .nav-contact { margin-left: 0; gap: 8px; }
@@ -2645,6 +2644,7 @@ h1, h2, h3, h4 { letter-spacing: -.035em; text-wrap: balance; }
 @media (max-width:760px) {
   .container { width: calc(100% - 48px); }
   .site-header { height: 76px; }
+  .wordmark { font-size: 20px; }
   .header-actions { gap: 20px; }
   .theme-switch { border: 0; padding: 0; }
   .theme-switch > span { display: none; }
@@ -2721,7 +2721,7 @@ h1, h2, h3, h4 { letter-spacing: -.035em; text-wrap: balance; }
 }
 @media (max-width:370px) {
   .container { width: calc(100% - 40px); }
-  .wordmark { font-size: 15px; gap: 8px; }
+  .wordmark { font-size: 20px; }
   .header-actions { gap: 12px; }
   .hero h1 { font-size: 39px; }
   .hero-actions { gap: 10px; }
