@@ -83,7 +83,7 @@ export const projects: Project[] = [
     ],
     contribution: [
       "At a strict 2% risk budget the deviation-penalised method reaches 71.7% recall, against 47.4% for unpenalised baselines — it keeps far more true claims at the same certified risk level.",
-      "Eliminates the threshold degeneracy that makes naive calibration unusable at strict risk budgets.",
+      "Avoided degenerate thresholds in the reported strict-risk evaluation, where naive calibration often abstained on almost everything.",
       "An ablation across scoring methods reveals a U-shaped entropy–error relationship, explaining why penalties targeting sycophancy alone are suboptimal.",
       "Published at UAI 2026 (PMLR 337:3143–3161).",
     ],
@@ -94,9 +94,9 @@ export const projects: Project[] = [
           "Long-form answers pack several factual assertions into one context, which violates the independence assumptions that per-claim conformal methods rely on.",
       },
       {
-        decision: "A non-monotonic deviation penalty rather than a straight anti-sycophancy penalty",
+        decision: "A penalty on claim-score spread rather than semantic entropy",
         rationale:
-          "The entropy–error relationship is U-shaped: both unanimous agreement and extreme scatter carry elevated error, so a monotonic penalty misprices one end of the range.",
+          "Score Deviation uses the spread of the weak judge’s claim scores within a query–response tuple. The U-shaped entropy–error finding comes from a separate scoring ablation; it is not the definition of the deviation penalty.",
       },
       {
         decision: "The guarantee is on expected False Discovery Rate across queries",

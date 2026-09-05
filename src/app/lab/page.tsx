@@ -1,0 +1,4 @@
+import type {Metadata} from 'next';
+import QuorumLab from '@/components/v2/QuorumLab';
+export const metadata:Metadata={title:'The Consensus Lab',description:'Three claims. Five agents. A short demonstration of why agreement does not guarantee correctness.',alternates:{canonical:'/lab/'}};
+export default function Lab(){return <div className="container page-content lab-page"><header className="page-heading"><p className="eyebrow">THE CONSENSUS LAB / ABOUT ONE MINUTE</p><h1>Would you<br/><span>trust the crowd?</span></h1><div className="page-heading-bottom"><p>Five agents evaluate each claim. Look at their answers, make a call, then uncover the evidence.</p></div><p className="lab-disclosure">A scripted demonstration, not live model output. Source families illustrate potentially shared errors; they do not establish independence.</p></header><QuorumLab/></div>}

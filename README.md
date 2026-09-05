@@ -1,145 +1,46 @@
-# adamkostka.com
+# Adam Kostka — portfolio v2
 
-Personal site for Adam Kostka — AI engineer and multi-agent systems researcher.
-
-Editorial paper-and-ink design with exactly one dark "instrument" section, one controlled
-agent simulation, and one interactive research artefact (QUORUM). The site is complete,
-readable and indexable with JavaScript disabled.
-
----
+The public portfolio at https://feilaz.github.io. This repository now hosts the reviewed second design; the previous implementation remains in Git history at `2470ff42727e9160501d799c94cd717e0c335dd2`.
 
 ## Run
 
-```bash
-npm install
-npm run dev          # http://localhost:3000
-```
+Node 22+. Install the existing lockfile with `npm ci`, then `npm run dev -- --port 3100`.
 
-```bash
-npm run build && npm start    # production build
-```
+`npm run verify` runs lint, focused model/lesson tests, the static production build, and a generated-output link/structure audit.
 
-Node 22+. No environment variables, no database, no API keys — the whole site is static.
+## Design
 
-## Verify
+Neutral surfaces, ink typography and restrained cobalt accents. Square geometry, a shared alignment grid and deliberate spacing replace the first draft’s rounded cards. The header appearance switch remembers an explicit choice; first-time visitors follow their device theme. Both themes cover diagrams, filters and interactive content. A concise homepage leads with production engineering, follows with the research contribution, and links to dedicated publications, background and interactive research pages. Seven complete case-study routes preserve the original project record. Existing structured content is retained in `src/content/`.
 
-```bash
-npm run verify           # build + contrast audit + full Playwright suite
-npm test                 # 47 tests, Chromium desktop + WebKit mobile
-npm run test:quorum      # drives QUORUM end to end and asserts the pedagogy holds
-npm run check:contrast   # WCAG AA audit of every colour pair the site uses
-npm run check:fold       # asserts Fig. 1 is visible without scrolling
-npm run check:overflow   # reports any element wider than the viewport at 390px
-npm run shots            # screenshots at 6 viewports + reduced-motion + no-canvas
-```
+Project visuals are authored feature maps, schedules and product concepts. They are labeled as illustrations rather than presented as screenshots of proprietary software. The research figure is an inexpensive, deterministic SVG model that changes only in response to the visitor. It stays still at rest; a brief, reduced-motion-aware transition follows slider input. The figure labels truth and the group estimate and uses qualitative shared-error levels instead of an empirical-looking percentage. QUORUM uses scripted responses and identifies that limitation before interaction.
 
-First run needs browsers: `npx playwright install chromium webkit`.
+All fonts are served locally. There is no model API, database, form backend, analytics or secret required. Motion is limited to small CSS hover transitions and respects reduced-motion preferences. The public deployment uses GitHub Pages canonical URLs and allows search indexing.
 
-Lighthouse (needs a Chrome binary):
+## Routes
 
-```bash
-CHROME_PATH=/path/to/chrome npx lighthouse@12 http://localhost:3000/ \
-  --only-categories=performance,accessibility,best-practices,seo
-```
+- `/`: selected work, research, recent papers, introduction
+- `/publications/`: eight papers, year/topic filters, abstracts and citation copying
+- `/about/`: background, roles, education and skills
+- `/lab/`: three-round Consensus Lab
+- `/work/[slug]/`: seven individual case studies
 
-## Deploy
+## Hosting
 
-Vercel is the path of least resistance — the project is a stock Next.js App Router build
-with no server dependencies.
+GitHub Actions verifies the project, exports Next.js to `out/`, and deploys GitHub Pages whenever `main` changes. The `.nojekyll` file preserves Next’s underscore-prefixed assets. The separate private Sites review copy is not the source for this public deployment.
 
-```bash
-npx vercel        # preview
-npx vercel --prod
-```
+## Content still to confirm
 
-**Before the first deploy**, set the real domain in `src/content/site.ts` → `site.url`.
-It feeds canonical URLs, `sitemap.xml`, `robots.txt` and the Open Graph tags; leaving the
-placeholder makes all of them point at the wrong host.
+The source record comes from the existing portfolio. Career dates and project status are retained; publication status for ICLP remains author-confirmed with a preprint link. Add a proceedings link when available. Real publishable product screenshots and a portrait can replace the authored visual summaries later. The CV is the existing public, phone-free copy; it is not regenerated automatically. Dynamic citation counters have been omitted from the redesign.
 
-Any static host works too: `next build` output is fully prerendered.
+## Validation
 
-## Editing content
+The refinement passed lint, four focused model/lesson/theme tests, the static production build and a link/structure audit across 13 generated HTML documents. Browser inspection covered desktop at 1440px and mobile at 390px, both appearances, mobile navigation, publication year filtering and theme persistence after reload. The subsequent sweep checked the hero figure and slider endpoints, consistent SVG feature icons, the research case-study diagram, about page, publication controls, and the lab evidence reveal at 320px/390px. No horizontal overflow was observed on the inspected homepage and publication views. This is focused browser QA, not a comprehensive cross-browser or accessibility certification.
 
-All content is separated from presentation. You should never need to touch a component to
-change what the site says.
+## Design references
 
-| File | Holds |
-| --- | --- |
-| `src/content/site.ts` | Name, positioning, hero copy, links, Scholar metrics, availability |
-| `src/content/publications.ts` | Papers: titles, authors, venues, abstracts, links, citation data |
-| `src/content/projects.ts` | Case studies, including hand-placed architecture diagrams |
-| `src/content/experience.ts` | Roles, education, awards, skills |
-| `src/content/quorum.ts` | The QUORUM claims, agent responses and lesson copy |
+Reviewed the current public sites of [Paco Coursey](https://paco.me/), [Rauno Freiberg](https://rauno.me/) and [Brittany Chiang](https://brittanychiang.com/), plus [Linear’s account of its UI redesign](https://linear.app/now/how-we-redesigned-the-linear-ui). The useful principles were clear hierarchy, consistent alignment, limited surface treatments, restrained motion and meaningful whitespace. The implementation is original and uses no copied third-party assets.
 
-Section labels, their stated purposes and the three reader paths all live in
-`src/content/site.ts`. `site.availability` is the one sentence on the site about your
-intentions rather than your record — confirm it or empty it.
 
-**The CV PDF is not the front door.** This page is the CV, so the hero's primary action is
-contact and the PDF sits in the footer, where it stays useful for forwarding and for
-applicant-tracking uploads. To put it back in the hero, swap `site.links.email` for
-`site.links.cv` in `primaryLinks`.
+## Research precision sweep
 
-`CONTENT-TODO.md` lists what still needs your input and which claims need confirming.
-
-To replace the CV: overwrite `public/adam-kostka-cv.pdf`.
-
-## Architecture
-
-```
-src/
-  app/
-    layout.tsx              fonts, metadata, JSON-LD, skip link
-    page.tsx                section composition
-    work/[slug]/page.tsx    prerendered case studies
-    opengraph-image.tsx     generated share card, reusing the hero's still frame
-    sitemap.ts, robots.ts
-  components/
-    agents/                 the simulation: pure logic, Canvas2D renderer, bounded plate
-    research/Quorum.tsx     the interactive artefact
-    work/ArchitectureDiagram.tsx   SVG diagrams with full text alternatives
-    sections/               one file per page section
-    chrome/                 header (inverts over dark regions) and footer
-    ui/Section.tsx          the single section primitive
-  content/                  all copy and data
-  lib/                      motion tokens, capability detection, class helper
-scripts/                    verification and generation tooling
-tests/site.spec.ts          functional, resilience and accessibility tests
-```
-
-Three decisions worth knowing before changing anything:
-
-**Fig. 1 is an argument, not an ornament.** The hero figure went through two versions.
-The first was a swarm that formed and dissolved clusters: pleasant, and decorative —
-viewers could not tell what it showed, it had no control, and it opened identically every
-visit. The current one plots 500 agents on a one-dimensional answer space with a labelled
-truth line, a consensus marker, and one control: how much the agents have in common. Drag
-it right and *both* readouts rise — agreement and error together. That is the site's whole
-thesis, performed. If you change this figure, keep that property; a figure on a research
-site that does not say anything is a liability.
-
-**It is Canvas2D, not WebGL.** Built with react-three-fiber first: 230 KB and ~1.8 s of
-main-thread time to draw a few hundred soft dots, with seconds of LCP render delay
-attributed to it. Removing it took Performance from 89 to 96 and blocking time from
-290 ms to 0 ms.
-
-**Theme variables use `@theme static`.** Tailwind v4 tree-shakes theme variables no
-utility class references, and `globals.css` consumes several directly from the base layer.
-Without `static`, the entire type system silently falls back to system fonts.
-
-**The `next/font` variables are on `<html>`, not `<body>`.** Tailwind declares
-`--font-serif` on `:root` as `var(--font-newsreader), …`; custom-property substitution
-resolves against the declaring element, so defining the font variable lower down makes the
-`:root` declaration invalid and every heading falls back silently.
-
-## Accessibility and performance posture
-
-- Zero axe violations (WCAG 2.0/2.1/2.2 A and AA) on the home page, on a case study, and
-  inside the dark section mid-interaction, on both Chromium and WebKit.
-- Every colour pair the site uses is audited by `npm run check:contrast` — 21/21 at AA.
-- The interactive canvas is an enhancement: reduced motion gets a single static frame at
-  full density, and no canvas at all still leaves a real (precomputed) figure.
-- Lighthouse: Performance 96, Accessibility 100, Best Practices 100, SEO 100 (home);
-  98/100/100/100 on a case study.
-- Fig. 1 is fully inside the fold at 1440×900 and 70% visible at 1440×800, asserted by
-  `scripts/foldcheck.mjs`.
+Checked the published PMLR abstract and the retained camera-ready source against the website. Score Deviation uses within-tuple claim-score spread; semantic entropy and U-shaped penalties are separate ablations. The research figure separates offline calibration from scoring new queries. The case study states label-relative expected tuple-level FDR, exchangeability, and recalibration after model or domain changes. The opening swarm remains a conceptual counterexample, not a visualization of the scoring formula or experimental data.

@@ -12,13 +12,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
     {
-      url: site.url,
+      url: `${site.url}/`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 1,
     },
+    ...['publications','about','lab'].map(slug => ({url: `${site.url}/${slug}/`, changeFrequency: 'monthly' as const, priority: 0.8})),
     ...projects.map((p) => ({
-      url: `${site.url}/work/${p.id}`,
+      url: `${site.url}/work/${p.id}/`,
       lastModified: now,
       changeFrequency: "yearly" as const,
       priority: 0.7,

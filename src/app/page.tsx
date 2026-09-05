@@ -1,31 +1,14 @@
-import { Hero } from "@/components/sections/Hero";
-import { Now } from "@/components/sections/Now";
-import { Research } from "@/components/sections/Research";
-import { Work } from "@/components/sections/Work";
-import { Publications } from "@/components/sections/Publications";
-import { Experience } from "@/components/sections/Experience";
-import { About } from "@/components/sections/About";
-
-/**
- * Section order is the argument of the site:
- *
- *   hero + now      who this is, in under fifteen seconds, with the CV one click away
- *   research        the one interactive thing, on the one dark surface
- *   work            back to paper; conventional, legible case studies
- *   publications    a real academic list
- *   experience      canvas off, motion off, just the facts
- *   about           a person
- */
-export default function Home() {
-  return (
-    <>
-      <Hero />
-      <Now />
-      <Research />
-      <Work />
-      <Publications />
-      <Experience />
-      <About />
-    </>
-  );
-}
+import Link from 'next/link';
+import Signal from '@/components/v2/Signal';
+import {Arrow} from '@/components/v2/Chrome';
+import {ProjectVisual} from '@/components/v2/ProjectVisual';
+import {publications} from '@/content/publications';
+const selected=[{id:'strategy-agentic-platform',title:'Agentic AI at Strategy',org:'Strategy',kind:'agents' as const,description:'Answer caching, dashboard recommendations and follow-up handling for an enterprise agent platform.',tag:'AI engineering'},{id:'strategy-gantt-visualization',title:'Enterprise data visualization',org:'Strategy',kind:'gantt' as const,description:'A customer-facing Gantt visualization, owned across implementation, integration, testing and release.',tag:'Product engineering'},{id:'hermesfix',title:'HermesFix',org:'Odra Labs',kind:'hermes' as const,description:'HermesFix: an AWS-hosted platform that diagnoses and repairs WooCommerce sites with LLM agents.',tag:'Co-founder · AI engineer'},{id:'mergelearn',title:'MergeLearn',org:'Odra Labs',kind:'learning' as const,description:'A local-first prototype pairing agent-authored lessons with spaced repetition for learning from code.',tag:'Learning tools'}];
+export default function Home(){return <>
+ <section className="container hero"><div className="hero-copy"><div className="eyebrow hero-eyebrow"><span className="blue-dot"/> AI ENGINEERING / MULTI-AGENT RESEARCH</div><h1>Building AI.<br/>Understanding<br/><span>its limits.</span></h1><p>I build intelligent systems at <span className="employer-name">Strategy</span> and research what makes multi-agent AI reliable.</p><div className="hero-actions"><a className="button primary" href="#work">Explore my work <Arrow/></a><a className="text-link" href="#research">The research <Arrow diagonal/></a></div><div className="hero-footnote"><span>Based in Warsaw</span><span>Working across research & production</span></div></div><Signal/></section>
+ <div id="now" className="container context-strip"><span>ENGINEERING AT <span className="employer-name">Strategy</span></span><span>RESEARCH AT <strong>Warsaw University of Technology</strong></span><span>RECENT WORK <strong>UAI 2026</strong></span></div>
+ <section className="container section" id="work"><div className="section-heading"><div><p className="eyebrow">01 / SELECTED WORK</p><h2>Selected systems.</h2></div><p>Production features, independent products,<br className="desktop-break"/> and the engineering behind them.</p></div><div className="project-grid featured-work">{selected.slice(0,2).map((p,i)=><Link href={`/work/${p.id}/`} className="project-card" key={p.id}><ProjectVisual kind={p.kind}/><div className="project-info"><div className="project-meta"><span>{p.org} <span className="separator">/</span> {p.tag}</span><span>0{i+1}</span></div><h3>{p.title}<Arrow diagonal/></h3><p>{p.description}</p><span className="case-link">Read case study <Arrow/></span></div></Link>)}</div><div className="project-index">{selected.slice(2).map((p,i)=><Link href={`/work/${p.id}/`} key={p.id}><span className="index-no">0{i+3}</span><div><h3>{p.title}</h3><p>{p.description}</p></div><span className="index-org">{p.org}</span><Arrow diagonal/></Link>)}</div><div className="more-work"><span>Also building & exploring</span><Link href="/work/strategy-learning-platform/">Enterprise learning <Arrow diagonal/></Link><Link href="/work/polis/">Polis: controlled agent execution <Arrow diagonal/></Link></div></section>
+ <section className="research-section" id="research"><div className="container"><div className="section-heading"><div><p className="eyebrow">02 / RESEARCH</p><h2>Beyond the<br/><span>majority vote.</span></h2></div><p>My research studies the gap between<br className="desktop-break"/> collective confidence and correctness.</p></div><div className="research-feature"><div className="research-story"><span className="venue-pill">UAI 2026 <span>Published research</span></span><h3>From consensus<br/>to calibrated trust.</h3><p>Language models can share the same mistake. Adding more voices doesn’t necessarily add independent evidence.</p><p>My work with Jarosław A. Chudziak uses uncertainty quantification to control hallucination risk in multi-agent fact verification.</p><div className="research-links"><Link className="button light" href="/work/certified-multi-agent-verification/">Read the case study <Arrow/></Link><a className="text-link" href="https://proceedings.mlr.press/v337/kostka26a.html">Read the paper <Arrow diagonal/></a></div></div><div className="research-method"><div className="method-label">THE APPROACH</div><div className="method-row"><span>01</span><div><h4>Measure disagreement</h4><p>Look beyond the vote count.</p></div></div><div className="method-row"><span>02</span><div><h4>Calibrate a threshold</h4><p>Use Learn-Then-Test risk control.</p></div></div><div className="method-row"><span>03</span><div><h4>Know when to abstain</h4><p>Accept claims under a chosen risk budget.</p></div></div><p className="method-note">The guarantee concerns expected false discovery rate across queries, not the correctness of a single answer.</p></div></div><Link className="lab-teaser" href="/lab/"><span className="lab-icon" aria-hidden="true">5/5</span><div><span className="eyebrow">THE CONSENSUS LAB</span><h3>Five agents. One shared mistake.</h3><p>Try a one-minute experiment in deciding whom to trust.</p></div><span className="round-arrow"><Arrow/></span></Link></div></section>
+ <section id="publications" className="container section publication-preview"><div className="section-heading"><div><p className="eyebrow">03 / PUBLICATIONS</p><h2>Recent publications.</h2></div><Link className="text-link" href="/publications/">All {publications.length} publications <Arrow/></Link></div><div className="paper-list">{publications.slice(0,3).map(p=><a className="paper-preview" key={p.id} href={p.links[0].href}><span className="paper-venue">{p.venueShort}<small>{p.year}</small></span><h3>{p.title}</h3><Arrow diagonal/></a>)}</div></section>
+ <section id="about" className="container about-preview"><div id="experience"><p className="eyebrow">04 / THE PERSON BEHIND THE WORK</p><h2>Building, with<br/><span>better questions.</span></h2></div><div><p>I’m Adam, an AI engineer and computer science researcher based in Warsaw. I like working at the point where an interesting idea has to become a useful, dependable system.</p><Link className="text-link" href="/about/">More about me <Arrow/></Link></div></section>
+ </>}

@@ -3,18 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "npx --yes serve@14 out -l 3000 --no-clipboard",
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "npx --yes serve@14 out -l 3100 --no-clipboard",
     "lint": "eslint",
-    "test": "playwright test",
-    "test:quorum": "node scripts/quorum-states.mjs shots/quorum",
-    "check:contrast": "node scripts/contrast.mjs",
-    "check:overflow": "node scripts/overflow.mjs",
-    "shots": "node scripts/shots.mjs shots/latest",
-    "verify": "npm run build && npm run check:contrast && npm run test",
-    "check:fold": "node scripts/foldcheck.mjs",
-    "preview": "npm run build && npm start"
+    "test": "node --experimental-strip-types --test tests/model.test.mjs",
+    "check:export": "python3 scripts/check-export.py",
+    "verify": "npm run lint && npm test && npm run check:contrast && npm run build && npm run check:export",
+    "preview": "npm run build && npm start",
+    "check:contrast": "node scripts/contrast.mjs"
   },
   "dependencies": {
     "motion": "13.1.1",

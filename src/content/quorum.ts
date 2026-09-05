@@ -166,7 +166,7 @@ export const rounds: QuorumRound[] = [
   },
   {
     n: 3,
-    claim: "A day on Venus is longer than a year on Venus.",
+    claim: "Venus takes longer to rotate once on its axis than to complete an orbit of the Sun.",
     truth: "supported",
     truthNote:
       "Venus takes about 243 Earth days to rotate once on its axis, but only about 225 Earth days to complete an orbit of the Sun — so its sidereal day is longer than its year.",

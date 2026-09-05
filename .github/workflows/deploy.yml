@@ -32,12 +32,8 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Audit colour contrast
-        # Cheap, deterministic, and catches a whole class of regression before it ships.
-        run: npm run check:contrast
-
-      - name: Build static export
-        run: npm run build
+      - name: Verify and build public website
+        run: npm run verify
 
       - name: Disable Jekyll
         # Without this, Pages runs the output through Jekyll, which silently drops every
