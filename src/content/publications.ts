@@ -59,6 +59,7 @@ export interface Publication {
     pages?: string;
     series?: string;
     publisher?: string;
+    doi?: string;
     editor?: string;
     note?: string;
   };
@@ -193,8 +194,8 @@ export const publications: Publication[] = [
     id: "aied-2025-math-tutoring",
     title:
       "AI-Powered Math Tutoring: Platform for Personalized and Adaptive Education",
-    authors: ["Adam Kostka", "Jarosław A. Chudziak"],
-    venue: "International Conference on Artificial Intelligence in Education",
+    authors: ["Jarosław A. Chudziak", "Adam Kostka"],
+    venue: "Artificial Intelligence in Education",
     venueShort: "AIED 2025",
     year: 2025,
     kind: "conference",
@@ -202,13 +203,29 @@ export const publications: Publication[] = [
     summary:
       "A tutoring platform that adapts to the individual learner rather than serving a fixed curriculum. The work is about the system design needed to make personalisation and adaptivity operate together in practice.",
     topics: ["education", "multi-agent systems"],
+    citation: {
+      volume: "15882",
+      pages: "462--469",
+      series: "Lecture Notes in Computer Science",
+      publisher: "Springer Nature Switzerland",
+      doi: "10.1007/978-3-031-98465-5_58",
+      note: "AIED 2025, short paper",
+    },
     links: [
       {
         label: "Springer",
         href: "https://link.springer.com/chapter/10.1007/978-3-031-98465-5_58",
       },
+      {
+        label: "Code",
+        href: "https://github.com/feilaz/AI_Powered_Math_Tutoring",
+      },
+      {
+        label: "arXiv",
+        href: "https://arxiv.org/abs/2507.12484",
+      },
     ],
-    source: "stypendium PW/publikacje.txt",
+    source: "Springer DOI 10.1007/978-3-031-98465-5_58; author order and metadata verified 2026-10-04",
   },
   {
     id: "iccci-2025-tom-internal-beliefs",
@@ -287,6 +304,7 @@ export function toBibTeX(p: Publication): string {
     ["series", p.citation?.series ? `{${p.citation.series}}` : undefined],
     ["editor", p.citation?.editor ? `{${p.citation.editor}}` : undefined],
     ["publisher", p.citation?.publisher ? `{${p.citation.publisher}}` : undefined],
+    ["doi", p.citation?.doi ? `{${p.citation.doi}}` : undefined],
     ["url", p.links[0] ? `{${p.links[0].href}}` : undefined],
     ["note", p.citation?.note ? `{${p.citation.note}}` : undefined],
   ];
