@@ -55,6 +55,7 @@ export interface Project {
   problem: string;
   approach: string[];
   contribution: string[];
+  compact?: boolean;
   technical?: { decision: string; rationale: string }[];
   stack: string[];
   architecture: Architecture | null;
@@ -75,11 +76,11 @@ export const projects: Project[] = [
     kind: "research",
     featured: true,
     problem:
-      "Multi-agent LLM systems routinely treat agreement between agents as a proxy for confidence. That proxy fails in a specific and dangerous way: because frontier models share training data and alignment procedures, their errors are correlated, so a confident consensus and a shared hallucination are indistinguishable from the outside. Deployments in high-stakes settings need more than a heuristic — they need a bound.",
+      "Multi-agent LLM systems can agree on the same wrong answer. Vote counts alone cannot distinguish well-supported agreement from a shared mistake. This work asks how to select factual claims under a specified error budget.",
     approach: [
       "Reframe hallucination control as uncertainty quantification rather than as prompt or architecture design.",
-      "Establish the query–response tuple as the correct exchangeable unit for long-form multi-agent generation, so risk control applies at the right granularity.",
-      "Add a Score Deviation penalty that reduces confidence as factual disagreement inside the ensemble rises, then run Learn-Then-Test calibration to turn penalised scores into a threshold with a provable bound on the expected False Discovery Rate.",
+      "Keep the claims from each query–response pair together as one calibration unit, accounting for their dependence within a response.",
+      "Penalize the weak judge’s claim-support scores using their spread within each query–response tuple. Learn-Then-Test calibration then sets a selection threshold that bounds the expected false discovery rate.",
     ],
     contribution: [
       "At a strict 2% risk budget the deviation-penalised method reaches 71.7% recall, against 47.4% for unpenalised baselines — it keeps far more true claims at the same certified risk level.",
@@ -91,7 +92,7 @@ export const projects: Project[] = [
       {
         decision: "Risk control at the tuple level rather than per generated claim",
         rationale:
-          "Long-form answers pack several factual assertions into one context, which violates the independence assumptions that per-claim conformal methods rely on.",
+          "Claims in a long-form response share context and can have dependent errors. We calibrate at the query–response level, keeping these claims together as one unit.",
       },
       {
         decision: "A penalty on claim-score spread rather than semantic entropy",
@@ -120,7 +121,7 @@ export const projects: Project[] = [
           id: "penalty",
           label: "Score Deviation penalty",
           kind: "primary",
-          note: "Confidence falls as ensemble disagreement rises",
+          note: "Penalty based on within-tuple claim-score spread",
           col: 3,
           row: 2,
         },
@@ -159,6 +160,7 @@ export const projects: Project[] = [
         href: "https://raw.githubusercontent.com/mlresearch/v337/main/assets/kostka26a/kostka26a.pdf",
       },
       { label: "OpenReview", href: "https://openreview.net/forum?id=emSpdVic7M" },
+      { label: "Code", href: "https://github.com/feilaz/uai2026-score-deviation" },
     ],
     source: "artykuly/UAI26/article/main.tex; proceedings.mlr.press/v337/kostka26a.html",
   },
@@ -173,7 +175,7 @@ export const projects: Project[] = [
     kind: "product",
     featured: true,
     problem:
-      "An agentic AI layer over a business-intelligence platform has to answer questions about live enterprise data, stay affordable per query, and hold a coherent thread across a conversation. Each of those is a different engineering problem, and they interact.",
+      "An agentic AI layer over a business-intelligence platform has to answer questions about live enterprise data, stay affordable per query, and hold a coherent thread across a conversation.",
     approach: [
       "Delivered question-answer caching, so repeated questions do not repeatedly pay full inference cost.",
       "Delivered dashboard recommendation workflows, connecting the agent's output to the artefacts a user can act on.",
@@ -182,7 +184,7 @@ export const projects: Project[] = [
     ],
     contribution: [
       "Three features shipped on Strategy's agentic AI platform: caching, dashboard recommendation and multi-turn follow-up handling.",
-      "Changes spanned backend services and public API surface rather than a single component.",
+      "Changes spanned backend services and APIs.",
     ],
     stack: ["Python", "OpenAPI", "REST", "LLM agents"],
     architecture: null,
@@ -207,14 +209,14 @@ export const projects: Project[] = [
       "Created a local test harness and AI-assisted development scaffolding that removed the need to rebuild and redeploy the full visualization library on every iteration.",
     ],
     contribution: [
-      "Shipped as a first-class component of Strategy's business-intelligence platform. (The platform's reach — thousands of organizations — is the product's, not a measure of this component's adoption.)",
+      "Shipped as a customer-facing component of Strategy's business-intelligence platform.",
       "The local harness changed the inner development loop for the component from a full library rebuild to direct iteration.",
     ],
     technical: [
       {
         decision: "A local harness that renders the component outside the host platform",
         rationale:
-          "Rebuilding and redeploying the whole visualization library per change made iteration prohibitively slow; isolating the component removed that cost from the loop.",
+          "Rebuilding and redeploying the whole visualization library per change slowed iteration; isolating the component removed that cost from the loop.",
       },
     ],
     stack: ["TypeScript", "JavaScript", "D3.js", "Node.js"],
@@ -224,6 +226,7 @@ export const projects: Project[] = [
   },
   {
     id: "hermesfix",
+    compact: true,
     name: "HermesFix",
     oneLiner: "AWS-hosted platform that repairs WooCommerce sites with LLM agents",
     role: "Co-founder and AI Engineer",
@@ -233,7 +236,7 @@ export const projects: Project[] = [
     kind: "product",
     featured: true,
     problem:
-      "Broken WooCommerce installations are a large, unglamorous and genuinely painful problem for small merchants: diagnosis means reading logs, theme code and plugin interactions, and the cost of hiring a specialist often exceeds the value of the fix.",
+      "Diagnosing a broken WooCommerce site often means tracing an issue across logs, theme code and plugin interactions. HermesFix uses LLM agents to investigate and repair these issues.",
     approach: [
       "Co-founded a two-person AI product venture with a senior software engineer, contributing across architecture, implementation and product delivery.",
       "Built and deployed HermesFix, an AWS-hosted platform that diagnoses and repairs WooCommerce sites using LLM agents.",
@@ -249,15 +252,16 @@ export const projects: Project[] = [
   },
   {
     id: "strategy-learning-platform",
+    compact: true,
     name: "Internal Enterprise Learning Platform",
-    oneLiner: "Sole developer of a spec-driven internal platform, in active development",
+    oneLiner: "An internal learning platform built around stakeholder requirements",
     role: "Sole developer",
     org: "Strategy (NASDAQ: MSTR)",
     period: "2026 – present",
     status: "in development",
     kind: "platform",
     problem:
-      "An internal learning platform for an enterprise has real stakeholders with conflicting requirements, which makes the specification the hard part rather than the implementation.",
+      "The platform brings together requirements from internal users and stakeholders. The work starts with clarifying those requirements and reviewing the architecture before implementation.",
     approach: [
       "Used a spec-driven process: consulted users and stakeholders on requirements, and reviewed the architecture with experienced engineers before building.",
       "Building in Java, Spring Boot, React and PostgreSQL.",
@@ -270,6 +274,7 @@ export const projects: Project[] = [
   },
   {
     id: "polis",
+    compact: true,
     name: "Polis",
     oneLiner: "Open-source environment for controlled execution of autonomous agents",
     role: "Co-founder and AI Engineer",
@@ -278,18 +283,19 @@ export const projects: Project[] = [
     status: "prototype",
     kind: "platform",
     problem:
-      "Running autonomous agents seriously requires somewhere to run them where their actions are bounded and observable. Without that, every experiment is either unsafe or unmeasurable.",
+      "Autonomous agents need controls on what they can do and logs of what they have done. Without these, it is harder to limit actions and investigate failures.",
     approach: [
       "Prototyped an open-source environment for controlled execution and monitoring of autonomous agents.",
     ],
     contribution: ["Prototype environment for bounded agent execution with monitoring."],
     stack: ["Python", "LLM agents"],
     architecture: null,
-    links: [{ label: "odralabs.com", href: "https://odralabs.com/" }],
+    links: [{ label: "GitHub", href: "https://github.com/odralabshq/polis" }, { label: "Website", href: "https://odralabs.com/" }],
     source: "CV Experience section (Odra Labs)",
   },
   {
     id: "mergelearn",
+    compact: true,
     name: "MergeLearn",
     oneLiner: "Local-first tool where coding agents author lessons and FSRS schedules review",
     role: "Co-founder and AI Engineer",
@@ -298,7 +304,7 @@ export const projects: Project[] = [
     status: "prototype",
     kind: "product",
     problem:
-      "Engineers reading unfamiliar code learn it once and then forget it. Spaced repetition solves the forgetting, but authoring the material is the bottleneck — nobody writes flashcards about the module they just read.",
+      "Spaced repetition can help retain concepts from unfamiliar code, but creating useful review material takes time. MergeLearn explores using coding agents to prepare that material.",
     approach: [
       "Built a local-first tool in which coding agents author the lessons from real code, and FSRS schedules the review.",
     ],

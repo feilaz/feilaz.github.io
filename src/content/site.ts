@@ -53,7 +53,7 @@ export const site = {
 
   links: {
     cv: {
-      label: "CV",
+      label: "Engineering CV",
       href: "/adam-kostka-cv.pdf",
       external: false,
     },

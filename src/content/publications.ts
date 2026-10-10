@@ -13,9 +13,8 @@
  *            August 2026 and is now marked published, with the proceedings page, the
  *            PDF and the OpenReview record linked. Stale status on a flagship paper is
  *            exactly the kind of error an academic reader notices first.
- *   2026-08  ICLP 2026 was also listed as "accepted"; it is published. No proceedings
- *            landing page was indexed when this was corrected, so the arXiv preprint
- *            remains the linked artifact — add the proceedings URL when it appears.
+ *   2026-10  ICLP proceedings metadata and UAI implementation links added.
+ *            Custom summaries now distinguish within-tuple scoring from agent votes.
  */
 
 export type Topic =
@@ -81,10 +80,9 @@ export const publications: Publication[] = [
     abstract:
       "Multi-agent language systems are increasingly relied upon for high-stakes decision support. Many systems use consensus among agents as a measure of confidence. However, such a model is prone to failure if aligned agents have the same biases and propagate the same error. Under sycophantic consensus, correlated errors resemble strong agreement, and hallucination manifests as a consequence of uncalibrated uncertainty. While current measures provide useful heuristics, they lack statistical safety bounds at deployment time. This work reinterprets hallucination control as an uncertainty quantification problem. We contribute a Score Deviation penalty that directly lowers confidence when the factual disagreement within the ensemble rises. A Learn-Then-Test calibration procedure converts these penalized scores into a certified decision threshold that provably bounds the expected False Discovery Rate. The results show that this deviation-penalized method reduces the conservatism of the calibration process, achieving 71.7% recall compared to 47.4% for naive baselines at a strict 2% risk budget.",
     summary:
-      "Multi-agent systems often treat agreement between agents as evidence that an answer is correct. This paper shows why that breaks — models trained similarly make the same mistakes, so confident agreement and correlated error look identical — and replaces the heuristic with a calibrated procedure carrying a provable bound on the expected false discovery rate.",
+      "A method for selecting factual claims from LLM-based multi-agent systems under a chosen error budget. It penalizes variation in a weak judge’s claim-support scores within each query–response tuple, then uses Learn-Then-Test to calibrate the selection threshold.",
     findings: [
-      "Adding more agents can increase confidence in false outputs without improving accuracy, because LLM errors are not independent.",
-      "A Score Deviation penalty lowers confidence as factual disagreement inside the ensemble rises; Learn-Then-Test converts the penalised scores into a certified threshold that bounds the expected False Discovery Rate.",
+      "Score Deviation penalizes within-tuple variation in weak-judge claim-support scores. Learn-Then-Test calibrates a threshold that bounds the expected false discovery rate.",
       "At a strict 2% risk budget the method reaches 71.7% recall, against 47.4% for unpenalised baselines.",
     ],
     topics: ["multi-agent systems", "uncertainty", "verification"],
@@ -95,6 +93,7 @@ export const publications: Publication[] = [
         href: "https://raw.githubusercontent.com/mlresearch/v337/main/assets/kostka26a/kostka26a.pdf",
       },
       { label: "OpenReview", href: "https://openreview.net/forum?id=emSpdVic7M" },
+      { label: "Code", href: "https://github.com/feilaz/uai2026-score-deviation" },
     ],
     citation: {
       volume: "337",
@@ -116,16 +115,14 @@ export const publications: Publication[] = [
     kind: "technical communication",
     status: "published",
     summary:
-      "When several reasoners disagree, some of that disagreement is noise and some is structural — they simply cannot represent the same distinctions. This work builds an aggregation rule that tells the two apart, reconciling beliefs where reconciliation is meaningful and leaving principled disagreement intact where it is not.",
+      "A hybrid ASP–Python framework for maintaining and repairing beliefs when agents gain or lose the ability to distinguish states. It provides formal guarantees for these updates and explanations of constraint violations.",
     findings: [
       "Provides formal guarantees of admissibility preservation under refinement, unique mass-preserving repair under coarsening, and explanation completeness.",
     ],
     topics: ["belief revision", "logic", "multi-agent systems"],
-    links: [{ label: "arXiv", href: "https://arxiv.org/abs/2607.21210" }],
-    citation: { note: "Technical Communication" },
-    source:
-      "arxiv.org/abs/2607.21210; venue and published status per the author. No proceedings\n" +
-      "      landing page was indexed at the time of writing, so the preprint is the linked artifact.",
+    links: [{ label: "Proceedings", href: "https://doi.org/10.4204/EPTCS.450.39" }, { label: "arXiv", href: "https://arxiv.org/abs/2607.21210" }],
+    citation: { volume: "450", pages: "529--543", series: "Electronic Proceedings in Theoretical Computer Science", doi: "10.4204/EPTCS.450.39", note: "Technical Communication" },
+    source: "arxiv.org/abs/2607.21210; doi.org/10.4204/EPTCS.450.39",
   },
   {
     id: "knowledge-tom-logic-retrieval",
@@ -292,7 +289,7 @@ export const venueBreakdown = publications.reduce<Record<VenueKind, number>>(
 
 /** BibTeX built from the recorded fields. Nothing is invented; absent fields are omitted. */
 export function toBibTeX(p: Publication): string {
-  const key = `kostka${p.year}${p.id.split("-").pop()}`;
+  const key = `kostka${p.year}${p.id.replaceAll("-", "")}`;
   const journal = p.kind === "journal";
   const rows: [string, string | undefined][] = [
     ["title", `{${p.title}}`],

@@ -33,7 +33,7 @@ for p,data in pages.items():
   if target.is_dir():target=target/'index.html'
   if not target.exists():errors.append(f'{p.relative_to(root)}: missing {ref}')
   elif u.fragment and target.resolve() in pages and unquote(u.fragment) not in pages[target.resolve()].ids:errors.append(f'{p.relative_to(root)}: missing anchor {ref}')
-required=['index.html','about/index.html','publications/index.html','lab/index.html','adam-kostka-cv.pdf','fonts/instrument-sans.woff2','sitemap.xml','robots.txt']
+required=['index.html','about/index.html','publications/index.html','lab/index.html','adam-kostka-cv.pdf','adam-kostka-academic-cv.pdf','fonts/instrument-sans.woff2','sitemap.xml','robots.txt']
 for path in required:
  if not (root/path).is_file():errors.append(f'Missing required output: {path}')
 if errors:print('\n'.join(errors));sys.exit(1)
