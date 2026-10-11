@@ -111,7 +111,7 @@ export const rounds: QuorumRound[] = [
         lineage: "α",
         verdict: "supported",
         confidence: 0.94,
-        reasoning: "Everest holds the record for elevation; the claim follows.",
+        reasoning: "Everest holds the record for elevation. The claim follows.",
       },
       {
         id: "b3",
@@ -142,14 +142,14 @@ export const rounds: QuorumRound[] = [
     claim: "Venus takes longer to rotate once on its axis than to complete an orbit of the Sun.",
     truth: "supported",
     truthNote:
-      "Venus takes about 243 Earth days to rotate once on its axis, but only about 225 Earth days to complete an orbit of the Sun — so its sidereal day is longer than its year.",
+      "Venus takes about 243 Earth days to rotate once on its axis, but only about 225 Earth days to complete an orbit of the Sun. Its sidereal day is longer than its year.",
     agents: [
       {
         id: "c1",
         lineage: "α",
         verdict: "refuted",
         confidence: 0.82,
-        reasoning: "A day is a subdivision of a year; the claim inverts that.",
+        reasoning: "A day is a subdivision of a year. The claim inverts that.",
       },
       {
         id: "c2",

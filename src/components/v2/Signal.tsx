@@ -14,7 +14,7 @@ export default function Signal(){
   <div className="signal-top"><span className="eyebrow">RESEARCH NOTE / 01</span></div>
   <h2 id="signal-title">Agreement <span>≠ accuracy.</span></h2>
   <div className="signal-legend" aria-hidden="true"><span><i className="legend-dot"/>Agent answer</span><span><i className="legend-truth"/>Truth</span><span><i className="legend-mean"/>Group estimate</span></div>
-  <svg viewBox="0 0 480 260" role="img" aria-label={`Shared error: ${level.toLowerCase()}. ${explanation} Dots represent illustrative agent answers; the solid line is truth and the dashed line is their mean.`}>
+  <svg viewBox="0 0 480 260" role="img" aria-label={`Shared error: ${level.toLowerCase()}. ${explanation} Dots represent illustrative agent answers. The solid line is truth and the dashed line is their mean.`}>
    <defs><pattern id="signal-grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="var(--plot-grid)"/></pattern></defs>
    <rect width="480" height="225" fill="url(#signal-grid)"/>
    <rect className="signal-error-area" x="240" y="36" width={mean-240} height="176" fill="var(--blue)" opacity=".045"/>

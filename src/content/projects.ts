@@ -69,7 +69,7 @@ export const projects: Project[] = [
     id: "certified-multi-agent-verification",
     name: "Certified Multi-Agent Fact Verification",
     oneLiner: "Statistical guarantees for systems that use agent agreement as confidence",
-    role: "First author; designed the method, implementation and experiments",
+    role: "First author, responsible for method design, implementation and experiments",
     org: "Warsaw University of Technology",
     period: "2026",
     status: "research code",
@@ -78,12 +78,12 @@ export const projects: Project[] = [
     problem:
       "Multi-agent LLM systems can agree on the same wrong answer. Vote counts alone cannot distinguish well-supported agreement from a shared mistake. This work asks how to select factual claims under a specified error budget.",
     approach: [
-      "Reframe hallucination control as uncertainty quantification rather than as prompt or architecture design.",
+      "Treat hallucination control as a statistical risk-control problem.",
       "Keep the claims from each query–response pair together as one calibration unit, accounting for their dependence within a response.",
       "Penalize the weak judge’s claim-support scores using their spread within each query–response tuple. Learn-Then-Test calibration then sets a selection threshold that bounds the expected false discovery rate.",
     ],
     contribution: [
-      "At a strict 2% risk budget the deviation-penalised method reaches 71.7% recall, against 47.4% for unpenalised baselines — it keeps far more true claims at the same certified risk level.",
+      "At a 2% risk budget, the method achieved 71.7% recall, compared with 47.4% for unpenalized baselines in the reported evaluation.",
       "Avoided degenerate thresholds in the reported strict-risk evaluation, where naive calibration often abstained on almost everything.",
       "An ablation across scoring methods reveals a U-shaped entropy–error relationship, explaining why penalties targeting sycophancy alone are suboptimal.",
       "Published at UAI 2026 (PMLR 337:3143–3161).",
@@ -97,18 +97,18 @@ export const projects: Project[] = [
       {
         decision: "A penalty on claim-score spread rather than semantic entropy",
         rationale:
-          "Score Deviation uses the spread of the weak judge’s claim scores within a query–response tuple. The U-shaped entropy–error finding comes from a separate scoring ablation; it is not the definition of the deviation penalty.",
+          "Score Deviation uses the spread of the weak judge’s claim scores within a query–response tuple. The U-shaped entropy–error finding comes from a separate scoring ablation.",
       },
       {
         decision: "The guarantee is on expected False Discovery Rate across queries",
         rationale:
-          "It is not a per-answer certificate. Being explicit about what the bound does and does not cover matters more than the headline word 'certified'.",
+          "The bound concerns the expected false discovery rate across query–response tuples. It does not certify the correctness of each individual answer.",
       },
     ],
     stack: ["Python", "Conformal prediction", "Learn-Then-Test", "LLM ensembles"],
     architecture: {
       caption:
-        "The verification pipeline. The contribution is the penalty and calibration layer (highlighted): it sits after generation, so it wraps an existing ensemble without retraining anything.",
+        "The highlighted penalty and calibration steps operate on outputs from an existing ensemble without retraining the models.",
       cols: 4,
       rows: 3,
       source: "artykuly/UAI26/article/main.tex (abstract and Section 1)",
@@ -175,11 +175,11 @@ export const projects: Project[] = [
     kind: "product",
     featured: true,
     problem:
-      "An agentic AI layer over a business-intelligence platform has to answer questions about live enterprise data, stay affordable per query, and hold a coherent thread across a conversation.",
+      "The agent platform needs to answer questions about enterprise data, control inference costs and keep track of conversational context.",
     approach: [
-      "Delivered question-answer caching, so repeated questions do not repeatedly pay full inference cost.",
-      "Delivered dashboard recommendation workflows, connecting the agent's output to the artefacts a user can act on.",
-      "Delivered conversational follow-up handling, so a second question is interpreted in the context of the first.",
+      "Added answer caching to reduce inference costs for repeated questions.",
+      "Built workflows for the agent to recommend relevant dashboards.",
+      "Added follow-up handling so the agent interprets questions in the context of the conversation.",
       "Made the backend and API changes these features required across Python and OpenAPI services.",
     ],
     contribution: [
@@ -202,7 +202,7 @@ export const projects: Project[] = [
     kind: "product",
     featured: true,
     problem:
-      "Strategy's business-intelligence platform needed a Gantt-chart visualization as a first-class, customer-facing component. Delivering into a large existing visualization library means the work is as much about integration, testing and release discipline as it is about rendering.",
+      "Strategy's business-intelligence platform needed a Gantt-chart visualization. The component had to fit into the existing visualization library and pass integration testing and QA before release.",
     approach: [
       "Owned architecture, implementation, testing, cross-repository integration and QA coordination for the component.",
       "Built it from an existing Figma design in TypeScript, JavaScript, D3.js and Node.js, then contributed to later refinements of both the design and the specification.",
@@ -210,13 +210,13 @@ export const projects: Project[] = [
     ],
     contribution: [
       "Shipped as a customer-facing component of Strategy's business-intelligence platform.",
-      "The local harness changed the inner development loop for the component from a full library rebuild to direct iteration.",
+      "The local test harness let me test changes without rebuilding the full visualization library.",
     ],
     technical: [
       {
         decision: "A local harness that renders the component outside the host platform",
         rationale:
-          "Rebuilding and redeploying the whole visualization library per change slowed iteration; isolating the component removed that cost from the loop.",
+          "Rebuilding and redeploying the whole visualization library slowed each change. Running the component separately made local development faster.",
       },
     ],
     stack: ["TypeScript", "JavaScript", "D3.js", "Node.js"],
@@ -266,7 +266,7 @@ export const projects: Project[] = [
       "Used a spec-driven process: consulted users and stakeholders on requirements, and reviewed the architecture with experienced engineers before building.",
       "Building in Java, Spring Boot, React and PostgreSQL.",
     ],
-    contribution: ["Sole developer; in active development."],
+    contribution: ["Sole developer. The platform is in active development."],
     stack: ["Java", "Spring Boot", "React", "PostgreSQL"],
     architecture: null,
     links: [],
