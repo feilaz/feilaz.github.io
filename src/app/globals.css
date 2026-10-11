@@ -1359,7 +1359,7 @@ input[type=range] {
   background:var(--background);
   color:var(--ink);
   padding:11px 38px 11px 13px;
-  max-width:250px;
+  max-width:300px;
   border-radius:0;
   font-size:14px
 }
