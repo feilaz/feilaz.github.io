@@ -52,11 +52,6 @@ export const site = {
     "I am interested in research collaboration on agent reliability, and in engineering roles where both halves of this page are useful.",
 
   links: {
-    cv: {
-      label: "Engineering CV",
-      href: "/adam-kostka-cv.pdf",
-      external: false,
-    },
     github: {
       label: "GitHub",
       href: "https://github.com/feilaz",
@@ -80,14 +75,7 @@ export const site = {
   },
 } as const;
 
-/**
- * Hero destinations.
- *
- * The CV PDF is deliberately NOT here. This page is the CV — a fuller one than the PDF,
- * with the work, the papers and a working demonstration — so leading with "download a
- * worse version of what you are looking at" was the wrong first action. Contact is.
- * The PDF remains one click away in the footer, for forwarding and for ATS uploads.
- */
+/** Contact and profile links. */
 export const primaryLinks = [
   site.links.email,
   site.links.github,

@@ -46,7 +46,7 @@ jobs:
         run: |
           set -e
           for f in out/index.html out/og.png out/sitemap.xml out/robots.txt \
-                   out/adam-kostka-cv.pdf out/work/certified-multi-agent-verification/index.html; do
+                   out/work/certified-multi-agent-verification/index.html; do
             test -s "$f" || { echo "missing or empty: $f"; exit 1; }
           done
           test -d out/_next/static || { echo "no static assets emitted"; exit 1; }
