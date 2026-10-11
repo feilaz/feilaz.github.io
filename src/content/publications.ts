@@ -45,7 +45,7 @@ export interface Publication {
   kind: VenueKind;
   status: "published" | "accepted";
   /** Verbatim abstract from the paper or publisher record. */
-  abstract?: string;
+  abstract: string;
   /** Plain-language gloss. Faithful to the abstract, no invented findings. */
   summary: string;
   /** Short factual statements. Numbers appear only if they appear in the paper. */
@@ -114,6 +114,9 @@ export const publications: Publication[] = [
     year: 2026,
     kind: "technical communication",
     status: "published",
+    // Abstract: https://arxiv.org/abs/2607.21210 (verified 2026-10-11).
+    abstract:
+      "Existing approaches to multi-agent belief combination have established mature foundations for combining uncertain beliefs under common assumptions: consensus methods use iterative averaging, logic-based methods resolve conflicting knowledge bases, and epistemic logic analyzes agents' information states. Typically, these approaches assume that the structure determining what each agent can represent remains fixed. However, in many scenarios, agents gain or lose observational capacity during execution, and what was once admissible may become structurally impossible. This paper presents a formal framework for handling such runtime changes in epistemic partitions over continuous belief profiles. A hybrid approach exploits the advantages of answer set programming in elaboration tolerance, declarative integrity constraints, and explanations, with the numerical flexibility of Python. The framework applies to domains where agents operate at heterogeneous and possibly changing levels of resolution, and provides formal guarantees of admissibility preservation under refinement, unique mass-preserving repair under coarsening, and explanation completeness. Evaluation across 100 randomly generated topology changes confirms complete violation detection and explanation coverage.",
     summary:
       "A hybrid ASP–Python framework for maintaining and repairing beliefs when agents gain or lose the ability to distinguish states. It provides formal guarantees for these updates and explanations of constraint violations.",
     findings: [
@@ -134,6 +137,9 @@ export const publications: Publication[] = [
     year: 2026,
     kind: "journal",
     status: "published",
+    // Abstract: https://api.crossref.org/works/10.3390/knowledge6030017 (verified 2026-10-11).
+    abstract:
+      "Large Language Models have rapidly advanced, enabling composite multi-agent systems capable of sophisticated text-based collaboration. In domains that demand coordinated reasoning, teams of agents can combine complementary strengths to produce better results than a single model. In practice, multi-agent decision making faces recurring shortcomings: agents frequently operate with poorly grounded or outdated knowledge, they seldom represent peers’ beliefs and intentions in a disciplined manner, and their conclusions are rarely checked against explicit logical constraints. These gaps reduce coherence, hinder dependable cooperation, and make the reasoning chain difficult to explore, often manifesting their black-box nature. How can a practical MAS architecture be designed to ground agents with relevant information, support explicit modelling of collaborators’ beliefs, and validate outputs against formal rules? How can the individual and synergized contributions of these mechanisms be measured across multiple case studies? To explore these questions, we present a purpose-built experimental platform. The system integrates a retrieval-augmented generation pipeline to ground agents in relevant materials, a Theory of Mind module that makes agent beliefs explicit, and an LLM-based logic auditor that evaluates outputs against an explicit rule set. Applied to diverse text-based decision-support and coordination case studies, the platform and protocol provide a reproducible blueprint for investigating how grounding, social reasoning, and logic validation together improve multi-agent collaboration. In doing so, this study contributes to the field of artificial intelligence by offering a structured approach to building, testing, and refining multi-agent architectures that balance knowledge grounding, perspective modelling, and reasoning validation.",
     summary:
       "A study of what three capabilities contribute when combined inside one multi-agent system: a retrieval-augmented pipeline that grounds agents in source material, a Theory of Mind module that makes agent beliefs explicit, and an LLM-based logic auditor that checks outputs against an explicit rule set.",
     topics: ["multi-agent systems", "theory of mind", "logic", "retrieval"],
@@ -175,6 +181,9 @@ export const publications: Publication[] = [
     year: 2025,
     kind: "conference",
     status: "published",
+    // Abstract: https://arxiv.org/abs/2507.21969 (verified 2026-10-11).
+    abstract:
+      "Recently, the field of Multi-Agent Systems (MAS) has gained popularity as researchers are trying to develop artificial intelligence capable of efficient collective reasoning. Agents based on Large Language Models (LLMs) perform well in isolated tasks, yet struggle with higher-order cognition required for adaptive collaboration. Human teams achieve synergy not only through knowledge sharing, but also through recursive reasoning, structured critique, and the ability to infer others' mental states. Current artificial systems lack these essential mechanisms, limiting their ability to engage in sophisticated collective reasoning. This work explores cognitive processes that enable effective collaboration, focusing on adaptive theory of mind (ToM) and systematic critical evaluation. We investigate three key questions. First, how does the ability to model others' perspectives enhance coordination and reduce redundant reasoning? Second, to what extent does structured critique improve reasoning quality by identifying logical gaps and mitigating biases? Third, the interplay of these mechanisms can lead to emergent cognitive synergy, where the collective intelligence of the system exceeds the sum of its parts. Through an empirical case study on complex decision making, we show that the integration of these cognitive mechanisms leads to more coherent, adaptive, and rigorous agent interactions. This article contributes to the field of cognitive science and AI research by presenting a structured framework that emulates human-like collaborative reasoning MAS. It highlights the significance of dynamic ToM and critical evaluation in advancing multi-agent systems' ability to tackle complex, real-world challenges.",
     summary:
       "Examines the cognitive processes that make collaboration work in a multi-agent LLM system, focusing on adaptive theory of mind and systematic critical evaluation — in particular whether modelling other agents' perspectives improves coordination and reduces redundant reasoning.",
     topics: ["multi-agent systems", "theory of mind", "evaluation"],
@@ -197,6 +206,9 @@ export const publications: Publication[] = [
     year: 2025,
     kind: "conference",
     status: "published",
+    // Abstract: https://link.springer.com/chapter/10.1007/978-3-031-98465-5_58 (verified 2026-10-11).
+    abstract:
+      "The growing ubiquity of artificial intelligence (AI), in particular large language models (LLMs), has profoundly altered the way in which learners gain knowledge and interact with learning material, with many claiming that AI positively influences their learning achievements. Despite this advancement, current AI tutoring systems face limitations associated with their reactive nature, often providing direct answers without encouraging deep reflection or incorporating structured pedagogical tools and strategies. This limitation is most apparent in the field of mathematics, in which AI tutoring systems remain underdeveloped. This research addresses the question: How can AI tutoring systems move beyond providing reactive assistance to enable structured, individualized, and tool-assisted learning experiences? We introduce a novel multi-agent AI tutoring platform that combines adaptive and personalized feedback, structured course generation, and textbook knowledge retrieval to enable modular, tool-assisted learning processes. This system allows students to learn new topics while identifying and targeting their weaknesses, revise for exams effectively, and practice on an unlimited number of personalized exercises. This article contributes to the field of artificial intelligence in education by introducing a novel platform that brings together pedagogical agents and AI-driven components, augmenting the field with modular and effective systems for teaching mathematics.",
     summary:
       "A tutoring platform that adapts to the individual learner rather than serving a fixed curriculum. The work is about the system design needed to make personalisation and adaptivity operate together in practice.",
     topics: ["education", "multi-agent systems"],
@@ -234,6 +246,9 @@ export const publications: Publication[] = [
     year: 2025,
     kind: "conference",
     status: "published",
+    // Abstract: https://link.springer.com/chapter/10.1007/978-3-032-09318-9_2 (verified 2026-10-11).
+    abstract:
+      "LLM-based MAS are gaining popularity due to their potential for collaborative problem-solving enhanced by advances in natural language comprehension, reasoning, and planning. Research in Theory of Mind (ToM) and Belief-Desire-Intention (BDI) models has the potential to further improve the agent’s interaction and decision-making in such systems. However, collaborative intelligence in dynamic worlds remains difficult to accomplish since LLM performance in multi-agent worlds is extremely variable. Simply adding cognitive mechanisms like ToM and internal beliefs does not automatically result in improved coordination. The interplay between these mechanisms, particularly in relation to formal logic verification, remains largely underexplored in different LLMs. This work investigates: How do internal belief mechanisms, including symbolic solvers and Theory of Mind, influence collaborative decision-making in LLM-based multi-agent systems, and how does the interplay of those components influence system accuracy? We introduce a novel multi-agent architecture integrating ToM, BDI-style internal beliefs, and symbolic solvers for logical verification. We evaluate this architecture in a resource allocation problem with various LLMs and find an intricate interaction between LLM capabilities, cognitive mechanisms, and performance. This work contributes to the area of AI by proposing a novel multi-agent system with ToM, internal beliefs, and symbolic solvers for augmenting collaborative intelligence in multi-agent systems and evaluating its performance under different LLM settings.",
     summary:
       "Introduces a multi-agent architecture combining theory of mind, BDI-style internal beliefs and symbolic solvers for logical verification, then evaluates it on a resource-allocation problem across several LLMs to see how model capability and cognitive mechanism interact.",
     topics: ["multi-agent systems", "theory of mind", "evaluation"],
@@ -257,6 +272,9 @@ export const publications: Publication[] = [
     year: 2024,
     kind: "conference",
     status: "published",
+    // Abstract: https://aclanthology.org/2024.paclic-1.19.pdf (verified 2026-10-11).
+    abstract:
+      "This paper explores the integration of advanced Multi-Agent Systems (MAS) techniques to develop a team of agents with enhanced logical reasoning, long-term knowledge retention, and Theory of Mind (ToM) capabilities. By uniting these core components with optimized communication protocols, we create a novel framework called SynergyMAS, which fosters collaborative teamwork and superior problem-solving skills. The system’s effectiveness is demonstrated through a product development team case study, where our approach significantly enhances performance and adaptability. These findings highlight SynergyMAS’s potential to tackle complex, real-world challenges.",
     summary:
       "The first system in this line of work: a multi-agent LLM architecture bringing a logical reasoning layer, long-term knowledge retention and explicit collaboration into one pipeline. Presented in Tokyo in December 2024.",
     topics: ["multi-agent systems", "logic", "retrieval"],
